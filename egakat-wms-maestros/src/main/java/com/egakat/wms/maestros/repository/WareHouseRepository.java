@@ -7,7 +7,6 @@ import org.springframework.data.repository.query.Param;
 
 import com.egakat.core.data.jpa.repository.IdentifiedDomainObjectRepository;
 import com.egakat.wms.maestros.domain.WareHouse;
-import com.egakat.wms.maestros.dto.Material;
 
 public interface WareHouseRepository extends IdentifiedDomainObjectRepository<WareHouse, String> {
 

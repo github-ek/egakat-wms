@@ -10,7 +10,7 @@ import com.egakat.core.web.client.service.impl.LocalQueryServiceImpl;
 import com.egakat.wms.maestros.client.components.WmsRestProperties;
 import com.egakat.wms.maestros.client.service.api.WhareHouseLocalService;
 import com.egakat.wms.maestros.constants.RestConstants;
-import com.egakat.wms.maestros.dto.Material;
+import com.egakat.wms.maestros.dto.MaterialDto;
 import com.egakat.wms.maestros.dto.WareHouseDto;
 
 import lombok.val;
@@ -51,8 +51,8 @@ public class WhareHouseLocalServiceImpl extends LocalQueryServiceImpl<WareHouseD
 	}
 
 	@Override
-	public List<Material> findBom(String wh_id, String client_id, String prtnum) {
-		val response = getRestClient().getAllQuery(getResourcePath(), RestConstants.bom, Material[].class, wh_id,
+	public List<MaterialDto> findBom(String wh_id, String client_id, String prtnum) {
+		val response = getRestClient().getAllQuery(getResourcePath(), RestConstants.bom, MaterialDto[].class, wh_id,
 				client_id, prtnum);
 		val result = Arrays.asList(response.getBody());
 		return result;

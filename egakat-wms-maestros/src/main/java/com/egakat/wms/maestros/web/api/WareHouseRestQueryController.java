@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.egakat.core.web.api.controllers.QueryRestController;
 import com.egakat.wms.maestros.constants.RestConstants;
-import com.egakat.wms.maestros.dto.Material;
+import com.egakat.wms.maestros.dto.MaterialDto;
 import com.egakat.wms.maestros.dto.WareHouseDto;
 import com.egakat.wms.maestros.service.api.WareHouseQueryService;
 
@@ -41,7 +41,7 @@ public class WareHouseRestQueryController extends QueryRestController<WareHouseD
 	}
 
 	@GetMapping(value = RestConstants.bom)
-	public ResponseEntity<List<Material>> getBom(@PathVariable String wh_id, @PathVariable String client_id,
+	public ResponseEntity<List<MaterialDto>> getBom(@PathVariable String wh_id, @PathVariable String client_id,
 			@PathVariable String prtnum) {
 		
 		val result = getService().findBom(wh_id, client_id, prtnum);

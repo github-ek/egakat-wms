@@ -1,4 +1,4 @@
-package com.egakat.wms.maestros.dto;
+package com.egakat.wms.maestros.repository;
 
 import java.math.BigDecimal;
 
