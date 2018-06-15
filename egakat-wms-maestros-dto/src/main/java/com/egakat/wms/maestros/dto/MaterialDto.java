@@ -2,8 +2,6 @@ package com.egakat.wms.maestros.dto;
 
 import java.math.BigDecimal;
 
-import com.egakat.wms.maestros.dto.ClientDto.ClientDtoBuilder;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
