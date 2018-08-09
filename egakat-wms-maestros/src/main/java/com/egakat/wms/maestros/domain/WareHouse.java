@@ -24,8 +24,6 @@ import lombok.ToString;
 @NoArgsConstructor
 public class WareHouse implements IdentifiedDomainObject<String> {
 
-	private static final long serialVersionUID = 1L;
-
 	@Id
 	@Column(name = "wh_id", length = 32, nullable = false)
 	@NotNull

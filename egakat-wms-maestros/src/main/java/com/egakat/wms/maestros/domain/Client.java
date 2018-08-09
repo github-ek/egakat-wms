@@ -20,8 +20,6 @@ import lombok.ToString;
 @NoArgsConstructor
 public class Client implements IdentifiedDomainObject<String> {
 
-	private static final long serialVersionUID = 1L;
-
 	@Id
 	@Column(name = "client_id", length = 32, nullable = false)
 	@NotNull

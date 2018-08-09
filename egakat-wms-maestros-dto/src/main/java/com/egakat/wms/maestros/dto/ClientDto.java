@@ -17,8 +17,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 public class ClientDto implements IdentifiedDomainObject<String> {
-
-	private static final long serialVersionUID = 1L;
 	
 	@NotNull
 	@Size(max = 32)

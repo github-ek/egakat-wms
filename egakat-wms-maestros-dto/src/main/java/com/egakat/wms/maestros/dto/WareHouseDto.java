@@ -22,8 +22,6 @@ import lombok.ToString;
 @Builder
 public class WareHouseDto implements IdentifiedDomainObject<String> {
 
-	private static final long serialVersionUID = 1L;
-
 	@NotNull
 	@Size(max = 32)
 	private String id;

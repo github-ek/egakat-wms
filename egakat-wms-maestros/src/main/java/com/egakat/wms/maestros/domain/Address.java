@@ -24,8 +24,6 @@ import lombok.ToString;
 @Builder
 public class Address implements IdentifiedDomainObject<String> {
 
-	private static final long serialVersionUID = 1L;
-
 	@Id
 	@Column(name = "adr_id", length = 20, nullable = false)
 	@NotNull

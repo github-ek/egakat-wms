@@ -18,8 +18,6 @@ import lombok.ToString;
 @Builder
 public class AddressDto implements IdentifiedDomainObject<String> {
 
-	private static final long serialVersionUID = 1L;
-
 	@NotNull
 	@Size(max = 20)
 	private String id;
