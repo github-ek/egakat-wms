@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.egakat.core.web.api.controllers.QueryRestController;
-import com.egakat.wms.maestros.constants.RestConstants;
+import com.egakat.wms.maestros.configuration.constants.RestConstants;
 import com.egakat.wms.maestros.dto.AddressDto;
 import com.egakat.wms.maestros.service.api.AddressQueryService;
 

@@ -1,4 +1,4 @@
-package com.egakat.wms.maestros.constants;
+package com.egakat.wms.maestros.configuration.constants;
 
 public class RestConstants {
 
@@ -9,14 +9,13 @@ public class RestConstants {
 	final public static String clientes = base + "/clientes";
 
 	final public static String direcciones = base + "/direcciones";
-	
+
 	final public static String estadosInventario = base + "/estados-inventario";
 
 	final public static String subestadosInventario = base + "/subestados-inventario";
 
 	final public static String unidadesMedida = base + "/unidades-medida";
 
-	
 	final public static String productosByCliente = "/{client_id}/productos";
 
 	final public static String productosByClienteAndId = "/{client_id}/productos/{prtnum}";
@@ -27,8 +26,11 @@ public class RestConstants {
 
 	final public static String medidasByClienteAndProductoAndBodega = "/{client_id}/productos/{prtnum}/medidas?wh_id={wh_id}";
 
-	
 	final public static String productoTieneListaDeMateriales = "/{wh_id}/cliente/{client_id}/producto/{prtnum}";
-	
+
 	final public static String bom = "/{wh_id}/cliente/{client_id}/producto/{prtnum}/bom";
+
+	final public static String ordenes_alistamiento = "/ordenes-alistamiento";
+
+	final public static String ordenes_alistamiento_ack = ordenes_alistamiento + "/suscripcion/{suscripcion}";
 }
