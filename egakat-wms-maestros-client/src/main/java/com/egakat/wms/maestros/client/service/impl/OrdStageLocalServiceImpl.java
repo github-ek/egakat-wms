@@ -54,5 +54,4 @@ public class OrdStageLocalServiceImpl extends LocalQueryServiceImpl<OrdShipmentD
 		val query = "/suscripcion/{suscripcion}";
 		getRestClient().delete(getResourcePath() + query, model.getIdSuscripcion());
 	}
-
 }
