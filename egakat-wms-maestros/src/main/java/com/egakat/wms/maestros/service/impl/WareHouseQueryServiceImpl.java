@@ -89,17 +89,28 @@ public class WareHouseQueryServiceImpl extends QueryServiceImpl<WareHouse, WareH
 	}
 
 	protected List<OrdShipmentLineDto> asLineas(String client_id, String ordnum, String wh_id) {
-		val list = getRepository().findOrdenesDeAlistamientoEnStageLineas(client_id, ordnum, wh_id);
-
+		val lineas = getRepository().findOrdenesDeAlistamientoEnStageLineas(client_id, ordnum, wh_id);
 		val cancelaciones = findOrdenesDeAlistamientoEnStageCancelaciones(client_id, ordnum, wh_id);
 		val lotes = findOrdenesDeAlistamientoEnStageLotes(client_id, ordnum, wh_id);
 
-		// @formatter:off
-		val result = list
-				.stream()
-				.map(a -> new OrdShipmentLineDto(a.getOrdlin(), a.getPrtnum(), a.getInvsts(), a.getOrdqty(), a.getShpqty(), a.getStgqty(), cancelaciones, lotes))
-				.collect(Collectors.toList());
-		// @formatter:on
+		val result = new ArrayList<OrdShipmentLineDto>();
+		for (val linea : lineas) {
+			val c = cancelaciones.stream().filter(a -> a.getOrdlin().equals(linea.getOrdlin())).collect(Collectors.toList());
+			val l = lotes.stream().filter(a -> a.getOrdlin().equals(linea.getOrdlin())).collect(Collectors.toList());
+
+			// @formatter:off
+			val model = new OrdShipmentLineDto(
+					linea.getOrdlin(), 
+					linea.getPrtnum(), 
+					linea.getInvsts(), 
+					linea.getOrdqty(), 
+					linea.getShpqty(), 
+					linea.getStgqty(), 
+					c, l);
+			// @formatter:on
+			
+			result.add(model);
+		}
 		
 		return result;
 	}
