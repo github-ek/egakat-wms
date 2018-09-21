@@ -6,16 +6,16 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class OrdShipmentLineLoteDto {
 
 	@NotNull
@@ -34,11 +34,11 @@ public class OrdShipmentLineLoteDto {
 	@Size(max = 4)
 	private String invsts;
 
+	private int untqty;
+	
 	@NotNull
 	@Size(max = 25)
 	private String orgcod;
 
 	private LocalDateTime expireDte;
-
-	private int untqty;
 }

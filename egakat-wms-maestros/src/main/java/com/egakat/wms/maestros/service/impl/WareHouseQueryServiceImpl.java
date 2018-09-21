@@ -1,6 +1,5 @@
 package com.egakat.wms.maestros.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,10 +10,6 @@ import com.egakat.core.services.crud.impl.QueryServiceImpl;
 import com.egakat.wms.maestros.domain.WareHouse;
 import com.egakat.wms.maestros.dto.MaterialDto;
 import com.egakat.wms.maestros.dto.WareHouseDto;
-import com.egakat.wms.maestros.dto.ordenes.OrdShipmentDto;
-import com.egakat.wms.maestros.dto.ordenes.OrdShipmentLineCancelacionDto;
-import com.egakat.wms.maestros.dto.ordenes.OrdShipmentLineDto;
-import com.egakat.wms.maestros.dto.ordenes.OrdShipmentLineLoteDto;
 import com.egakat.wms.maestros.repository.WareHouseRepository;
 import com.egakat.wms.maestros.service.api.WareHouseQueryService;
 
@@ -60,82 +55,5 @@ public class WareHouseQueryServiceImpl extends QueryServiceImpl<WareHouse, WareH
 
 		val result = list.stream().map(a -> new MaterialDto(a.getPrtnum(), a.getCnsqty())).collect(Collectors.toList());
 		return result;
-	}
-
-	@Override
-	public List<OrdShipmentDto> findAllOrdShipmentEnStage() {
-		val list = getRepository().findAllOrdShipmentEnStage();
-
-		val result = new ArrayList<OrdShipmentDto>();
-
-		for (val entity : list) {
-			val lineas = asLineas(entity.getClientId(), entity.getOrdnum(), entity.getWhId());
-
-			// @formatter:off
-			val model = OrdShipmentDto
-					.builder()
-					.idSuscripcion(entity.getIdSuscripcion())
-					.clientId(entity.getClientId())
-					.ordnum(entity.getOrdnum())
-					.whId(entity.getWhId())
-					.ordtyp(entity.getOrdtyp())
-					.lineas(lineas)
-					.build();
-			// @formatter:on
-			result.add(model);
-
-		}
-		return result;
-	}
-
-	protected List<OrdShipmentLineDto> asLineas(String client_id, String ordnum, String wh_id) {
-		val lineas = getRepository().findOrdenesDeAlistamientoEnStageLineas(client_id, ordnum, wh_id);
-		val cancelaciones = findOrdenesDeAlistamientoEnStageCancelaciones(client_id, ordnum, wh_id);
-		val lotes = findOrdenesDeAlistamientoEnStageLotes(client_id, ordnum, wh_id);
-
-		val result = new ArrayList<OrdShipmentLineDto>();
-		for (val linea : lineas) {
-			val c = cancelaciones.stream().filter(a -> a.getOrdlin().equals(linea.getOrdlin())).collect(Collectors.toList());
-			val l = lotes.stream().filter(a -> a.getOrdlin().equals(linea.getOrdlin())).collect(Collectors.toList());
-
-			// @formatter:off
-			val model = new OrdShipmentLineDto(
-					linea.getOrdlin(), 
-					linea.getPrtnum(), 
-					linea.getInvsts(), 
-					linea.getOrdqty(), 
-					linea.getShpqty(), 
-					linea.getStgqty(), 
-					c, l);
-			// @formatter:on
-			
-			result.add(model);
-		}
-		
-		return result;
-	}
-
-	protected List<OrdShipmentLineCancelacionDto> findOrdenesDeAlistamientoEnStageCancelaciones(String client_id,
-			String ordnum, String wh_id) {
-		val list = getRepository().findOrdenesDeAlistamientoEnStageCancelaciones(client_id, ordnum, wh_id);
-
-		val result = list.stream().map(a -> new OrdShipmentLineCancelacionDto(a.getOrdlin(), a.getPrtnum(),
-				a.getCancod(), a.getLngdsc(), a.getRemqty())).collect(Collectors.toList());
-		return result;
-	}
-
-	protected List<OrdShipmentLineLoteDto> findOrdenesDeAlistamientoEnStageLotes(String client_id, String ordnum,
-			String wh_id) {
-		val list = getRepository().findOrdenesDeAlistamientoEnStageLotes(client_id, ordnum, wh_id);
-
-		val result = list.stream().map(a -> new OrdShipmentLineLoteDto(a.getOrdlin(), a.getPrtnum(), a.getLotnum(),
-				a.getInvsts(), a.getOrgcod(), a.getExpireDte(), a.getUntqty())).collect(Collectors.toList());
-		return result;
-	}
-
-	@Override
-	public void ack(long id) {
-		getRepository().deleteSuscripcion(id);
-		getRepository().flush();
 	}
 }

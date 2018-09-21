@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +15,6 @@ import com.egakat.core.web.api.controllers.QueryRestController;
 import com.egakat.wms.maestros.configuration.constants.RestConstants;
 import com.egakat.wms.maestros.dto.MaterialDto;
 import com.egakat.wms.maestros.dto.WareHouseDto;
-import com.egakat.wms.maestros.dto.ordenes.OrdShipmentDto;
 import com.egakat.wms.maestros.service.api.WareHouseQueryService;
 
 import lombok.val;
@@ -50,37 +48,4 @@ public class WareHouseRestQueryController extends QueryRestController<WareHouseD
 
 		return ResponseEntity.ok(result);
 	}
-
-	@GetMapping(value = RestConstants.ordenes_alistamiento)
-	public ResponseEntity<List<OrdShipmentDto>> getOrdenesDeAlistamientoEnStage() {
-
-		val result = getService().findAllOrdShipmentEnStage();
-
-		return ResponseEntity.ok(result);
-	}
-
-	@DeleteMapping(value = RestConstants.ordenes_alistamiento_ack)
-	public ResponseEntity<?> ack(@PathVariable("suscripcion") Long id) {
-
-		getService().ack(id);
-
-		return ResponseEntity.ok().build();
-	}
-
-//	@GetMapping(value = RestConstants.ordenes_alistamiento + "/lineas")
-//	public ResponseEntity<List<OrdenAlistamientoLineaDto>> getOrdenesDeAlistamientoEnStageLineas(String client_id,
-//			String ordnum, String wh_id) {
-//
-//	}
-//
-//	public ResponseEntity<List<OrdenAlistamientoCancelacionDto>> getOrdenesDeAlistamientoEnStageCancelaciones(
-//			String client_id, String ordnum, String wh_id) {
-//
-//	}
-//
-//	public ResponseEntity<List<OrdenAlistamientoLoteDto>> getOrdenesDeAlistamientoEnStageLotes(String client_id,
-//			String ordnum, String wh_id) {
-//
-//	}
-
 }

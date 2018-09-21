@@ -30,7 +30,10 @@ public class RestConstants {
 
 	final public static String bom = "/{wh_id}/cliente/{client_id}/producto/{prtnum}/bom";
 
-	final public static String ordenes_alistamiento = "/ordenes-alistamiento";
+	final public static String ordenes_alistamiento = "/api/ordenes/ordenes-alistamiento";
 
-	final public static String ordenes_alistamiento_ack = ordenes_alistamiento + "/suscripcion/{suscripcion}";
+	final public static String ordenes_alistamiento_suscripciones = "/suscripciones";
+
+	final public static String ordenes_alistamiento_suscripciones_ack = ordenes_alistamiento_suscripciones
+			+ "/{id}/ack";
 }
