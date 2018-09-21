@@ -2,6 +2,7 @@ package com.egakat.io.gws.commons.core.suscripciones.service.impl;
 
 import static java.util.stream.Collectors.toList;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +69,7 @@ public class OrdenAlistamientoSuscripcionServiceImpl extends SuscripcionServiceI
 	@Override
 	protected RowMapper<OrdShipmentDto> getRowMapper() {
 		return (rs, rowNum) -> {
-			val result = new OrdShipmentDto();
+			OrdShipmentDto result = new OrdShipmentDto();
 
 			result.setIdSuscripcion(rs.getLong("id_suscripcion"));
 			result.setClientId(rs.getString("client_id"));
@@ -103,7 +104,7 @@ public class OrdenAlistamientoSuscripcionServiceImpl extends SuscripcionServiceI
 	protected List<OrdShipmentLineDto> getLineas(BeanPropertySqlParameterSource params) {
 		val sql = "SELECT a.ordlin, a.prtnum, a.invsts_prg, a.ordqty, a.stgqty, a.shpqty FROM [eHistoricos].dbo.OrdShipmentEnStageLineas(:clientId,:ordnum,:whId) a";
 		val result = getJdbcTemplate().query(sql, params, (rs, rowNum) -> {
-			val m = new OrdShipmentLineDto();
+			OrdShipmentLineDto m = new OrdShipmentLineDto();
 
 			m.setOrdlin(rs.getString("ordlin"));
 			m.setPrtnum(rs.getString("prtnum"));
@@ -120,7 +121,7 @@ public class OrdenAlistamientoSuscripcionServiceImpl extends SuscripcionServiceI
 	protected List<OrdShipmentLineCancelacionDto> getCancelaciones(BeanPropertySqlParameterSource params) {
 		val sql = "SELECT a.ordlin, a.prtnum, a.cancod, a.lngdsc, a.remqty, a.can_usr_id, a.candte FROM [eHistoricos].dbo.OrdShipmentEnStageCancelaciones(:clientId,:ordnum,:whId) a";
 		val result = getJdbcTemplate().query(sql, params, (rs, rowNum) -> {
-			val m = new OrdShipmentLineCancelacionDto();
+			OrdShipmentLineCancelacionDto m = new OrdShipmentLineCancelacionDto();
 
 			m.setOrdlin(rs.getString("ordlin"));
 			m.setPrtnum(rs.getString("prtnum"));
@@ -129,7 +130,7 @@ public class OrdenAlistamientoSuscripcionServiceImpl extends SuscripcionServiceI
 			m.setRemqty(rs.getInt("remqty"));
 			m.setCanUsrId(rs.getString("can_usr_id"));
 
-			val datetime = rs.getTimestamp("candte");
+			Timestamp datetime = rs.getTimestamp("candte");
 			if (datetime != null) {
 				m.setCanDte(datetime.toLocalDateTime());
 			}
@@ -142,7 +143,7 @@ public class OrdenAlistamientoSuscripcionServiceImpl extends SuscripcionServiceI
 	protected List<OrdShipmentLineLoteDto> getLotes(BeanPropertySqlParameterSource params) {
 		val sql = "SELECT a.ordlin, a.prtnum ,a.lotnum ,a.invsts ,a.orgcod ,a.expire_dte, a.untqty FROM [eHistoricos].dbo.OrdShipmentEnStageLotes(:clientId,:ordnum,:whId) a";
 		val result = getJdbcTemplate().query(sql, params, (rs, rowNum) -> {
-			val m = new OrdShipmentLineLoteDto();
+			OrdShipmentLineLoteDto m = new OrdShipmentLineLoteDto();
 
 			m.setOrdlin(rs.getString("ordlin"));
 			m.setPrtnum(rs.getString("prtnum"));
@@ -151,7 +152,7 @@ public class OrdenAlistamientoSuscripcionServiceImpl extends SuscripcionServiceI
 			m.setUntqty(rs.getInt("untqty"));
 			m.setOrgcod(rs.getString("orgcod"));
 
-			val datetime = rs.getTimestamp("expire_dte");
+			Timestamp datetime = rs.getTimestamp("expire_dte");
 			if (datetime != null) {
 				m.setExpireDte(datetime.toLocalDateTime());
 			}
