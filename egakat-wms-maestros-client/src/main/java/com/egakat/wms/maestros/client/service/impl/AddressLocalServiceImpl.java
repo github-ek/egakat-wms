@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.egakat.core.web.client.service.impl.LocalQueryServiceImpl;
-import com.egakat.wms.maestros.client.configuration.properties.WmsRestProperties;
 import com.egakat.wms.maestros.client.service.api.AddressLocalService;
-import com.egakat.wms.maestros.configuration.constants.RestConstants;
+import com.egakat.wms.maestros.constants.RestConstants;
 import com.egakat.wms.maestros.dto.AddressDto;
+import com.egakat.wms.maestros.properties.WmsRestProperties;
 
 @Service
 public class AddressLocalServiceImpl extends LocalQueryServiceImpl<AddressDto, String> implements AddressLocalService {

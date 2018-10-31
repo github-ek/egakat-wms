@@ -6,16 +6,16 @@ import javax.validation.constraints.Size;
 import com.egakat.core.domain.IdentifiedDomainObject;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class AddressDto implements IdentifiedDomainObject<String> {
 
 	@NotNull

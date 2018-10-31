@@ -1,10 +1,10 @@
-package com.egakat.wms.maestros.client.configuration.properties;
+package com.egakat.wms.maestros.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-import com.egakat.core.web.client.configuration.RestProperties;
+import com.egakat.core.web.client.properties.RestProperties;
 
 import lombok.Getter;
 import lombok.Setter;

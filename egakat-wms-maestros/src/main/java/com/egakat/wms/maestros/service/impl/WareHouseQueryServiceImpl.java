@@ -29,17 +29,19 @@ public class WareHouseQueryServiceImpl extends QueryServiceImpl<WareHouse, WareH
 
 	@Override
 	protected WareHouseDto asModel(WareHouse entity) {
-		// @formatter:off
-		val result = WareHouseDto
-				.builder()
-				.id(entity.getId())
-				.adressId(entity.getAdressId())
-				.fechaModificacion(entity.getFechaModificacion())
-				.modificadoPor(entity.getModificadoPor())
-				.build();
-		// @formatter:on
+		val result = newModel();
+
+		result.setId(entity.getId());
+		result.setAdressId(entity.getAdressId());
+		result.setFechaModificacion(entity.getFechaModificacion());
+		result.setModificadoPor(entity.getModificadoPor());
 
 		return result;
+	}
+
+	@Override
+	protected WareHouseDto newModel() {
+		return new WareHouseDto();
 	}
 
 	@Override
@@ -56,4 +58,5 @@ public class WareHouseQueryServiceImpl extends QueryServiceImpl<WareHouse, WareH
 		val result = list.stream().map(a -> new MaterialDto(a.getPrtnum(), a.getCnsqty())).collect(Collectors.toList());
 		return result;
 	}
+
 }

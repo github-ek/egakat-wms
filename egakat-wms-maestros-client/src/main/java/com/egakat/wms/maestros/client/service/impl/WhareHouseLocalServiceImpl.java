@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.egakat.core.web.client.service.impl.LocalQueryServiceImpl;
-import com.egakat.wms.maestros.client.configuration.properties.WmsRestProperties;
 import com.egakat.wms.maestros.client.service.api.WhareHouseLocalService;
-import com.egakat.wms.maestros.configuration.constants.RestConstants;
+import com.egakat.wms.maestros.constants.RestConstants;
 import com.egakat.wms.maestros.dto.MaterialDto;
 import com.egakat.wms.maestros.dto.WareHouseDto;
+import com.egakat.wms.maestros.properties.WmsRestProperties;
 
 import lombok.val;
 

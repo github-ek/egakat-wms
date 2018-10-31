@@ -36,11 +36,6 @@
 		<dependencies>
 			<dependency>
 				<groupId>com.egakat</groupId>
-				<artifactId>egakat-core-configuration</artifactId>
-				<version>${egakat.core.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.egakat</groupId>
 				<artifactId>egakat-core-domain</artifactId>
 				<version>${egakat.core.version}</version>
 			</dependency>
@@ -63,16 +58,6 @@
 				<groupId>com.egakat</groupId>
 				<artifactId>egakat-core-web-client</artifactId>
 				<version>${egakat.core.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.egakat</groupId>
-				<artifactId>egakat-commons-domain</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>com.egakat</groupId>
-				<artifactId>egakat-commons-dto</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.commons</groupId>

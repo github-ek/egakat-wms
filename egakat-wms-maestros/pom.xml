@@ -29,15 +29,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.egakat</groupId>
-			<artifactId>egakat-core-configuration</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.egakat</groupId>
 			<artifactId>egakat-core-web-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.egakat</groupId>
-			<artifactId>egakat-commons-domain</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.egakat</groupId>

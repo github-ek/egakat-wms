@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.egakat.core.web.api.controllers.QueryRestController;
-import com.egakat.wms.maestros.configuration.constants.RestConstants;
+import com.egakat.wms.maestros.constants.RestConstants;
 import com.egakat.wms.maestros.dto.MaterialDto;
 import com.egakat.wms.maestros.dto.WareHouseDto;
 import com.egakat.wms.maestros.service.api.WareHouseQueryService;

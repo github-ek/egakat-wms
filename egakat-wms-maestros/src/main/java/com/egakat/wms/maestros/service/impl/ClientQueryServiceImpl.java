@@ -12,8 +12,7 @@ import com.egakat.wms.maestros.service.api.ClientQueryService;
 import lombok.val;
 
 @Service
-public class ClientQueryServiceImpl extends QueryServiceImpl<Client, ClientDto, String>
-		implements ClientQueryService {
+public class ClientQueryServiceImpl extends QueryServiceImpl<Client, ClientDto, String> implements ClientQueryService {
 
 	@Autowired
 	private ClientRepository repository;
@@ -25,15 +24,17 @@ public class ClientQueryServiceImpl extends QueryServiceImpl<Client, ClientDto, 
 
 	@Override
 	protected ClientDto asModel(Client entity) {
-		// @formatter:on
-		val result = ClientDto
-				.builder()
-				.id(entity.getId())
-				.adressId(entity.getAdressId())
-				.build();
-		// @formatter:off
+		val result = new ClientDto();
+
+		result.setId(entity.getId());
+		result.setAdressId(entity.getAdressId());
 
 		return result;
+	}
+
+	@Override
+	protected ClientDto newModel() {
+		return new ClientDto();
 	}
 
 }

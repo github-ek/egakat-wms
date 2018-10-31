@@ -26,21 +26,22 @@ public class AddressQueryServiceImpl extends QueryServiceImpl<Address, AddressDt
 
 	@Override
 	protected AddressDto asModel(Address entity) {
-		// @formatter:on
-		val result = AddressDto
-				.builder()
-				.id(entity.getId())
-				.clienteId(defaultString(entity.getClienteId()))
-				.hostExternalId(defaultString(entity.getHostExternalId()))
-				.nombre(defaultString(entity.getNombre()))
-				.linea1(defaultString(entity.getLinea1()))
-				.linea2(defaultString(entity.getLinea2()))
-				.linea3(defaultString(entity.getLinea3()))
-				.ciudad(defaultString(entity.getCiudad()))
-				.build();
-		// @formatter:off
+		val result = new AddressDto();
+
+		result.setId(entity.getId());
+		result.setClienteId(defaultString(entity.getClienteId()));
+		result.setHostExternalId(defaultString(entity.getHostExternalId()));
+		result.setNombre(defaultString(entity.getNombre()));
+		result.setLinea1(defaultString(entity.getLinea1()));
+		result.setLinea2(defaultString(entity.getLinea2()));
+		result.setLinea3(defaultString(entity.getLinea3()));
+		result.setCiudad(defaultString(entity.getCiudad()));
 
 		return result;
 	}
 
+	@Override
+	protected AddressDto newModel() {
+		return new AddressDto();
+	}
 }

@@ -1,4 +1,4 @@
-package com.egakat.wms.maestros.configuration.constants;
+package com.egakat.wms.maestros.constants;
 
 public class RestConstants {
 

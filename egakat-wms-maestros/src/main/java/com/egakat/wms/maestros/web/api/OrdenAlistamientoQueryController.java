@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.egakat.io.gws.commons.core.suscripciones.service.api.OrdenAlistamientoSuscripcionService;
-import com.egakat.wms.maestros.configuration.constants.RestConstants;
+import com.egakat.wms.maestros.constants.RestConstants;
 import com.egakat.wms.maestros.dto.ordenes.OrdShipmentDto;
 
 import lombok.val;
