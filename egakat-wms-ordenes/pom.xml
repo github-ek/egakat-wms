@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>egakat-wms-maestros</artifactId>
+	<artifactId>egakat-wms-ordenes</artifactId>
 	<packaging>war</packaging>
 
-	<name>egakat-wms-maestros</name>
+	<name>egakat-wms-ordenes</name>
 	<description></description>
 
 	<parent>
@@ -33,7 +33,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.egakat</groupId>
-			<artifactId>egakat-wms-maestros-dto</artifactId>
+			<artifactId>egakat-wms-ordenes-dto</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>

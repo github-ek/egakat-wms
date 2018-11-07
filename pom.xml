@@ -75,5 +75,8 @@
 		<module>egakat-wms-maestros</module>
 		<module>egakat-wms-maestros-client</module>
 		<module>egakat-wms-maestros-dto</module>
+		<module>egakat-wms-ordenes</module>
+		<module>egakat-wms-ordenes-client</module>
+		<module>egakat-wms-ordenes-dto</module>
 	</modules>
 </project>
