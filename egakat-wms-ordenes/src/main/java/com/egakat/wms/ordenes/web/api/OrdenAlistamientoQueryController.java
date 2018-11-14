@@ -17,8 +17,8 @@ import com.egakat.wms.ordenes.service.suscripciones.api.OrdenAlistamientoSuscrip
 
 import lombok.val;
 
-@RestController
-@RequestMapping(value = RestConstants.ordenes_alistamiento, produces = MediaType.APPLICATION_JSON_VALUE)
+//@RestController
+//@RequestMapping(value = RestConstants.ordenes_alistamiento, produces = MediaType.APPLICATION_JSON_VALUE)
 public class OrdenAlistamientoQueryController {
 
 	@Autowired
