@@ -1,4 +1,4 @@
-package com.egakat.wms.maestros.client.components;
+package com.egakat.wms.ordenes.client.components;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

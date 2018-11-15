@@ -11,11 +11,7 @@ public class RestConstants {
 	final public static String ordenes_alistamiento_suscripciones_ack = ordenes_alistamiento_suscripciones
 			+ "/{id}/ack";
 
-	final public static String suscripciones = base + "/suscripciones";
-	
-	final public static String suscripciones_ordenes_alistamiento = "/ordenes-alistamiento";
-	
-	final public static String suscripciones_ordenes_alistamiento_creacion = suscripciones_ordenes_alistamiento + "/creacion";
-	
-	final public static String suscripciones_ordenes_alistamiento_stage = suscripciones_ordenes_alistamiento + "/stage";
+	final public static String suscripciones = "/api/suscripciones";
+
+	final public static String suscripciones_ordenes_alistamiento = suscripciones + "/ordenes-alistamiento";
 }

@@ -1,4 +1,4 @@
-package com.egakat.wms.maestros.client.properties;
+package com.egakat.wms.ordenes.client.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
