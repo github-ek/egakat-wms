@@ -1,4 +1,4 @@
-package com.egakat.wms.ordenes.service.suscripciones.impl;
+package com.egakat.wms.ordenes.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,12 +7,10 @@ import java.util.Optional;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import com.egakat.wms.ordenes.dto.suscripciones.SuscripcionDto;
-import com.egakat.wms.ordenes.service.suscripciones.api.SuscripcionService;
+import com.egakat.wms.ordenes.service.api.SuscripcionService;
 
 import lombok.val;
 
@@ -27,10 +25,6 @@ public abstract class SuscripcionServiceImpl<M> implements SuscripcionService<M>
 	protected abstract String getSqlFindByIdSuscripcion();
 
 	protected abstract String getSqlFindAllSuscripciones();
-
-	protected abstract String getSqlCrearSuscripcion();
-
-	protected abstract String getSqlCancelarSuscripcion();
 
 	protected abstract RowMapper<M> getRowMapper();
 
@@ -60,28 +54,5 @@ public abstract class SuscripcionServiceImpl<M> implements SuscripcionService<M>
 		} catch (DataAccessException e) {
 			return Optional.empty();
 		}
-	}
-
-	@Override
-	public void crearSuscripcion(String correlacion, String idExterno, String... args) {
-		val model = new SuscripcionDto();
-		model.setSuscripcion(getSuscripcion());
-		model.setIdExterno(idExterno);
-		model.setCorrelacion(correlacion);
-		model.setArgs(args);
-
-		val sql = getSqlCrearSuscripcion();
-		val params = new BeanPropertySqlParameterSource(model);
-		getJdbcTemplate().update(sql, params);
-	}
-
-	@Override
-	public void cancelarSuscripcion(long id) {
-		val paramMap = new HashMap<String, Long>();
-		paramMap.put(getIdSuscripcionParameterName(), id);
-
-		val sql = getSqlCancelarSuscripcion();
-		getJdbcTemplate().update(sql, paramMap);
-
 	}
 }

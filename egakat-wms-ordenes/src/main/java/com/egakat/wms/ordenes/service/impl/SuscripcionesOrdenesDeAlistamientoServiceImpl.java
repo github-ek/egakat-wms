@@ -1,77 +1,71 @@
-package com.egakat.wms.ordenes.service.suscripciones.impl;
+package com.egakat.wms.ordenes.service.impl;
 
 import static java.util.stream.Collectors.toList;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import com.egakat.wms.ordenes.constants.SuscripcionesContants;
 import com.egakat.wms.ordenes.dto.alistamientos.OrdShipmentDto;
 import com.egakat.wms.ordenes.dto.alistamientos.OrdShipmentLineCancelacionDto;
 import com.egakat.wms.ordenes.dto.alistamientos.OrdShipmentLineDto;
 import com.egakat.wms.ordenes.dto.alistamientos.OrdShipmentLineLoteDto;
-import com.egakat.wms.ordenes.service.suscripciones.api.OrdenAlistamientoSuscripcionService;
 
 import lombok.val;
 
 @Service
-public class OrdenAlistamientoSuscripcionServiceImpl extends SuscripcionServiceImpl<OrdShipmentDto>
-		implements OrdenAlistamientoSuscripcionService {
+public class SuscripcionesOrdenesDeAlistamientoServiceImpl {
 
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
-	@Override
 	protected NamedParameterJdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
 	}
 
-	@Override
 	protected String getSuscripcion() {
-		return "ALISTAMIENTOS_EN_STAGE";
+		return SuscripcionesContants.ORDENES_DE_ALISTAMIENTO;
 	}
 
-	@Override
-	protected String getIdSuscripcionParameterName() {
-		return "id";
+	protected String getSqlOrdenesCreadas() {
+		return "SELECT id_externo FROM dbo.OrdenesAlistamientoCreadas()";
 	}
 
-	@Override
-	protected String getSqlFindAllSuscripciones() {
-		return "SELECT id_suscripcion FROM [eHistoricos].dbo.OrdShipmentEnStage()";
+	public List<String> findAllOrdenesCreadas() {
+		val sql = getSqlOrdenesCreadas();
+		val result = getJdbcTemplate().queryForList(sql, new MapSqlParameterSource(), String.class);
+		return result;
 	}
 
-	@Override
-	protected String getSqlFindByIdSuscripcion() {
-		return "SELECT * FROM [eHistoricos].dbo.OrdShipmentEnStage() WHERE id_suscripcion = :id";
+	protected String getSqlOrdenesEnStage() {
+		return "SELECT id_externo FROM dbo.OrdenesAlistamientoEnStage()";
 	}
 
-	@Override
-	protected String getSqlCrearSuscripcion() {
-		val sql = " INSERT INTO [eHistoricos].dbo.suscripciones\r\n"
-				+ "    (suscripcion,id_externo,correlacion,arg0,arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9)\r\n"
-				+ " VALUES\r\n"
-				+ "    (:suscripcion,:idexterno,:correlacion,:arg0,:arg1,:arg2,:arg3,:arg4,:arg5,:arg6,:arg7,:arg8,:arg9)";
-		return sql;
+	public List<String> findAllOrdenesEnStage() {
+		val sql = getSqlOrdenesEnStage();
+		val result = getJdbcTemplate().queryForList(sql, new MapSqlParameterSource(), String.class);
+		return result;
 	}
 
-	@Override
-	protected String getSqlCancelarSuscripcion() {
-		val sql = "DELETE FROM [eHistoricos].dbo.suscripciones WHERE id_suscripcion = :id";
-		return sql;
-	}
+	public Optional<OrdShipmentDto> findOrden(String client_id, String ordnum, String wh_id) {
+		val sql = "SELECT * FROM dbo.OrdenDeAlistamiento(:client_id, :ordnum, :wh_id)";
 
-	@Override
-	protected RowMapper<OrdShipmentDto> getRowMapper() {
-		return (rs, rowNum) -> {
+		val paramMap = new HashMap<String, Object>();
+		paramMap.put("client_id", client_id);
+		paramMap.put("ordnum", ordnum);
+		paramMap.put("wh_id", wh_id);
+		
+		val result = getJdbcTemplate().queryForObject(sql, paramMap, (rs, rowNum) -> {
 			OrdShipmentDto result = new OrdShipmentDto();
 
-			result.setIdSuscripcion(rs.getLong("id_suscripcion"));
 			result.setClientId(rs.getString("client_id"));
 			result.setOrdnum(rs.getString("ordnum"));
 			result.setWhId(rs.getString("wh_id"));
@@ -80,10 +74,11 @@ public class OrdenAlistamientoSuscripcionServiceImpl extends SuscripcionServiceI
 			result.setLineas(asLineas(result));
 
 			return result;
-		};
+		});
+		return Optional.of(result);
 	}
 
-	protected List<OrdShipmentLineDto> asLineas(OrdShipmentDto model) {
+	private List<OrdShipmentLineDto> asLineas(OrdShipmentDto model) {
 		val params = new BeanPropertySqlParameterSource(model);
 
 		val result = getLineas(params);
@@ -101,8 +96,9 @@ public class OrdenAlistamientoSuscripcionServiceImpl extends SuscripcionServiceI
 		return result;
 	}
 
-	protected List<OrdShipmentLineDto> getLineas(BeanPropertySqlParameterSource params) {
-		val sql = "SELECT a.ordlin, a.prtnum, a.invsts_prg, a.ordqty, a.stgqty, a.shpqty FROM [eHistoricos].dbo.OrdShipmentEnStageLineas(:clientId,:ordnum,:whId) a";
+	private List<OrdShipmentLineDto> getLineas(BeanPropertySqlParameterSource params) {
+		val sql = "SELECT * FROM dbo.OrdenDeAlistamientoLineas(:clientId, :ordnum, :whId)";
+
 		val result = getJdbcTemplate().query(sql, params, (rs, rowNum) -> {
 			OrdShipmentLineDto m = new OrdShipmentLineDto();
 
@@ -118,8 +114,9 @@ public class OrdenAlistamientoSuscripcionServiceImpl extends SuscripcionServiceI
 		return result;
 	}
 
-	protected List<OrdShipmentLineCancelacionDto> getCancelaciones(BeanPropertySqlParameterSource params) {
-		val sql = "SELECT a.ordlin, a.prtnum, a.cancod, a.lngdsc, a.remqty, a.can_usr_id, a.candte FROM [eHistoricos].dbo.OrdShipmentEnStageCancelaciones(:clientId,:ordnum,:whId) a";
+	private List<OrdShipmentLineCancelacionDto> getCancelaciones(BeanPropertySqlParameterSource params) {
+		val sql = "SELECT * FROM dbo.OrdenDeAlistamientoCancelaciones(:clientId, :ordnum, :whId)";
+
 		val result = getJdbcTemplate().query(sql, params, (rs, rowNum) -> {
 			OrdShipmentLineCancelacionDto m = new OrdShipmentLineCancelacionDto();
 
@@ -140,8 +137,9 @@ public class OrdenAlistamientoSuscripcionServiceImpl extends SuscripcionServiceI
 		return result;
 	}
 
-	protected List<OrdShipmentLineLoteDto> getLotes(BeanPropertySqlParameterSource params) {
-		val sql = "SELECT a.ordlin, a.prtnum ,a.lotnum ,a.invsts ,a.orgcod ,a.expire_dte, a.untqty FROM [eHistoricos].dbo.OrdShipmentEnStageLotes(:clientId,:ordnum,:whId) a";
+	private List<OrdShipmentLineLoteDto> getLotes(BeanPropertySqlParameterSource params) {
+		val sql = "SELECT * FROM dbo.OrdenDeAlistamientoLotes(:clientId, :ordnum, :whId)";
+
 		val result = getJdbcTemplate().query(sql, params, (rs, rowNum) -> {
 			OrdShipmentLineLoteDto m = new OrdShipmentLineLoteDto();
 

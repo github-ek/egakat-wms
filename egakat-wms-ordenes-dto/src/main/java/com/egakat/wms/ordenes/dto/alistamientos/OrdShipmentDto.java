@@ -18,8 +18,6 @@ import lombok.ToString;
 @AllArgsConstructor
 public class OrdShipmentDto {
 
-	private Long idSuscripcion;
-	
 	@NotNull
 	@Size(max = 32)
 	private String clientId;
