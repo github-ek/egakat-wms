@@ -64,16 +64,16 @@ public class SuscripcionesOrdenesDeAlistamientoServiceImpl {
 		paramMap.put("wh_id", wh_id);
 		
 		val result = getJdbcTemplate().queryForObject(sql, paramMap, (rs, rowNum) -> {
-			OrdShipmentDto result = new OrdShipmentDto();
+			OrdShipmentDto r = new OrdShipmentDto();
 
-			result.setClientId(rs.getString("client_id"));
-			result.setOrdnum(rs.getString("ordnum"));
-			result.setWhId(rs.getString("wh_id"));
-			result.setOrdtyp(rs.getString("ordtyp"));
+			r.setClientId(rs.getString("client_id"));
+			r.setOrdnum(rs.getString("ordnum"));
+			r.setWhId(rs.getString("wh_id"));
+			r.setOrdtyp(rs.getString("ordtyp"));
 
-			result.setLineas(asLineas(result));
+			r.setLineas(asLineas(r));
 
-			return result;
+			return r;
 		});
 		return Optional.of(result);
 	}
