@@ -13,16 +13,17 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import com.egakat.wms.ordenes.constants.SuscripcionesContants;
+import com.egakat.wms.ordenes.constants.IntegracionesConstants;
 import com.egakat.wms.ordenes.dto.alistamientos.OrdShipmentDto;
 import com.egakat.wms.ordenes.dto.alistamientos.OrdShipmentLineCancelacionDto;
 import com.egakat.wms.ordenes.dto.alistamientos.OrdShipmentLineDto;
 import com.egakat.wms.ordenes.dto.alistamientos.OrdShipmentLineLoteDto;
+import com.egakat.wms.ordenes.service.api.SuscripcionesOrdenesDeAlistamientoService;
 
 import lombok.val;
 
 @Service
-public class SuscripcionesOrdenesDeAlistamientoServiceImpl {
+public class SuscripcionesOrdenesDeAlistamientoServiceImpl implements SuscripcionesOrdenesDeAlistamientoService {
 
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
@@ -32,7 +33,7 @@ public class SuscripcionesOrdenesDeAlistamientoServiceImpl {
 	}
 
 	protected String getSuscripcion() {
-		return SuscripcionesContants.ORDENES_DE_ALISTAMIENTO;
+		return IntegracionesConstants.ORDENES_DE_ALISTAMIENTO;
 	}
 
 	protected String getSqlOrdenesCreadas() {
@@ -62,7 +63,7 @@ public class SuscripcionesOrdenesDeAlistamientoServiceImpl {
 		paramMap.put("client_id", client_id);
 		paramMap.put("ordnum", ordnum);
 		paramMap.put("wh_id", wh_id);
-		
+
 		val result = getJdbcTemplate().queryForObject(sql, paramMap, (rs, rowNum) -> {
 			OrdShipmentDto r = new OrdShipmentDto();
 
