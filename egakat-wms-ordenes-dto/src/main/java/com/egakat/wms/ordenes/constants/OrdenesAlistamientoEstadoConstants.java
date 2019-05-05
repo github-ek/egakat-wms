@@ -18,5 +18,5 @@ public class OrdenesAlistamientoEstadoConstants {
 
 	public static final String DESGARGAR_LINEAS_ALISTADAS = "DESGARGAR_LINEAS_ALISTADAS";
 
-
+	public static final String STAGE = "STAGE";
 }
